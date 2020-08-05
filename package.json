@@ -1,0 +1,51 @@
+{
+  "name": "alejandro-tardin-site",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Alejandro Tardín <alejandro@tardin.com>",
+  "homepage": "https://alex.creepyface.io",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/4lejandrito/me.git"
+  },
+  "scripts": {
+    "build": "next build && next export",
+    "start": "next dev"
+  },
+  "dependencies": {
+    "@fullhuman/postcss-purgecss": "^2.3.0",
+    "classnames": "^2.2.6",
+    "creepyface": "^7.4.2",
+    "lodash": "^4.17.19",
+    "next": "9.5.0",
+    "next-seo": "^4.7.3",
+    "react": "16.13.1",
+    "react-creepyface": "^7.4.2",
+    "react-dom": "16.13.1",
+    "react-easy-emoji": "^1.4.0",
+    "tailwindcss": "^1.5.1"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.10",
+    "@types/lodash": "^4.14.158",
+    "@types/node": "^14.0.27",
+    "@types/react": "^16.9.44",
+    "husky": ">=4",
+    "lint-staged": ">=10",
+    "prettier": "^1.15.3",
+    "typescript": "^3.9.7"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,md,json,html,css,scss,webmanifest}": "prettier --write"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
