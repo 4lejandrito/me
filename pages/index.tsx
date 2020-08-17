@@ -1,16 +1,20 @@
 import Head from 'next/head'
 import { NextSeo } from 'next-seo'
-import Face, { Faces } from '../components/Face'
-import { useState } from 'react'
+import Face from '../components/Face'
+import Player from '../components/Player'
 import Link from '../components/Link'
-import Emoji from '../components/Emoji'
+import React from 'react'
+import useGlobalState, { Provider } from '../hooks/state'
+import Family, { Member, family } from '../components/Family'
+import classnames from 'classnames'
+import Animated from '../components/Animated'
 
-export default function Home() {
+function Home() {
   const title = 'Alex'
   const description = 'Welcome to my humble site'
-  const [face, setFace] = useState(1)
+  const { member, dancing, toggleDancing } = useGlobalState()
   return (
-    <main className="text-gray-800 font-sans text-lg sm:text-2xl min-h-screen flex flex-col items-center justify-center m-auto p-6">
+    <main className="text-gray-800 font-sans text-lg sm:text-2xl min-h-screen flex flex-col items-center justify-center m-auto p-6 slide-up">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href={'/manifest.json'} />
@@ -45,43 +49,98 @@ export default function Home() {
         }}
       />
 
-      <header className="text-4xl sm:text-5xl slide-up">
-        I'm <strong>Alex</strong> <Emoji char="👨🏼‍💻" />
-      </header>
+      <Animated state={dancing}>
+        <header className="text-4xl sm:text-5xl text-center">
+          {dancing ? (
+            <>
+              We're <strong>family</strong> <Family />
+            </>
+          ) : (
+            <>
+              I'm <strong>{family[0].name}</strong>{' '}
+              <Member member={family[0]} />
+            </>
+          )}
+        </header>
+      </Animated>
 
-      <section className="flex flex-col sm:flex-row items-center justify-center my-10 sm:my-16 sm:divide-x slide-up animation-delay">
-        <Face number={face} />
-        <ol className="leading-relaxed sm:pl-8 sm:ml-8">
-          <li>
-            I <strong>live</strong> in{' '}
-            <Link href="https://www.google.com/maps/place/Madrid">Madrid</Link>{' '}
-            with <Faces face={face} onChange={setFace} />.
-          </li>
-          <li>
-            I <strong>work</strong> as a <strong>Software Engineer</strong> at{' '}
-            <Link href="https://twitter.com/Liferay">@Liferay</Link>.
-          </li>
-          <li>
-            I <strong>made</strong>{' '}
-            <Link href="https://react-guitar.com">react-guitar</Link> and{' '}
-            <Link href="https://creepyface.io">creepyface</Link>.
-          </li>
-          <li>
-            I <strong>learn</strong>{' '}
-            <Link href="https://photos.app.goo.gl/AgoSrMMVWsaN7jrV8">
-              Spanish guitar
-            </Link>
-            .
-          </li>
-        </ol>
-      </section>
+      <Animated state={dancing}>
+        <section
+          className={classnames(
+            { 'sm:divide-x': !dancing },
+            'flex flex-col sm:flex-row items-center justify-center my-6 sm:my-16'
+          )}
+        >
+          <div className="flex flex-wrap items-center justify-center">
+            {dancing ? (
+              family.map((member, i) => <Face key={i} member={member} />)
+            ) : (
+              <Face member={member} />
+            )}
+          </div>
+          {!dancing && (
+            <ol className="leading-relaxed sm:pl-8 sm:ml-6">
+              <li>
+                I <strong>live</strong> in{' '}
+                <Link href="https://www.google.com/maps/place/Madrid">
+                  Madrid
+                </Link>{' '}
+                with <Family />
+                <small className="text-base">
+                  (and we{' '}
+                  <button
+                    className="hover:underline text-blue-500"
+                    onClick={toggleDancing}
+                  >
+                    dance
+                  </button>
+                  !)
+                </small>
+                .
+              </li>
+              <li>
+                I <strong>work</strong> as a <strong>Software Engineer</strong>{' '}
+                at <Link href="https://twitter.com/Liferay">@Liferay</Link>.
+              </li>
+              <li>
+                I <strong>made</strong>{' '}
+                <Link href="https://react-guitar.com">react-guitar</Link> and{' '}
+                <Link href="https://creepyface.io">creepyface</Link>.
+              </li>
+              <li>
+                I <strong>learn</strong>{' '}
+                <Link href="https://photos.app.goo.gl/AgoSrMMVWsaN7jrV8">
+                  Spanish guitar
+                </Link>
+                .
+              </li>
+            </ol>
+          )}
+        </section>
+      </Animated>
 
       <footer className="slide-up animation-delay">
-        <Link href="mailto:alejandro@tardin.com">Get in touch</Link> and{' '}
-        <strong>follow</strong> me on{' '}
-        <Link href="https://github.com/4lejandrito">GitHub</Link> or{' '}
-        <Link href="https://twitter.com/4lejandrito">Twitter</Link>.
+        <Animated state={dancing}>
+          {dancing ? (
+            <Player />
+          ) : (
+            <span>
+              <Link href="mailto:alejandro@tardin.com">Get in touch</Link> and{' '}
+              <strong>follow</strong> me on{' '}
+              <Link href="https://github.com/4lejandrito">GitHub</Link> or{' '}
+              <Link href="https://twitter.com/4lejandrito">Twitter</Link>.
+            </span>
+          )}
+        </Animated>
       </footer>
     </main>
+  )
+}
+
+export default function HomeWithState() {
+  return (
+    <Provider>
+      <Home />
+    </Provider>
   )
 }

@@ -1,54 +1,42 @@
 import Creepyface from 'react-creepyface'
 import { range } from 'lodash'
-import { createContext, useContext } from 'react'
 import classnames from 'classnames'
-import Emoji from './Emoji'
+import useGlobalState from '../hooks/state'
+import { FamilyMember, Member } from './Family'
+import { useState } from 'react'
 
-const FaceContext = createContext({ face: 1, setFace: (face: number) => {} })
+export default function Face(props: { member: FamilyMember }) {
+  const { dancing } = useGlobalState()
+  const { name, face } = props.member
+  const [loaded, setLoaded] = useState(false)
 
-const FaceButton = (props: { face: number; emoji: string; title: string }) => {
-  const { face, setFace } = useContext(FaceContext)
   return (
-    <button
-      className={classnames({
-        'opacity-25': props.face !== face && face !== 1
-      })}
-      title={props.title}
-      onClick={() => setFace(face === props.face ? 1 : props.face)}
-    >
-      <Emoji char={props.emoji} />
-    </button>
-  )
-}
-
-export const Faces = (props: {
-  face: number
-  onChange: (face: number) => void
-}) => (
-  <FaceContext.Provider value={{ face: props.face, setFace: props.onChange }}>
-    <FaceButton face={11} title="Noemí" emoji="👩🏻‍🎨" />{' '}
-    <FaceButton face={16} title="Navi" emoji="😼" />{' '}
-    <FaceButton face={19} title="Pepa" emoji="😺" />{' '}
-    <FaceButton face={0} title="Nala" emoji="😾" />{' '}
-    <FaceButton face={170} title="Thor" emoji="🙀" />
-  </FaceContext.Provider>
-)
-
-export default function Face(props: { number: number }) {
-  return (
-    <Creepyface
-      className="w-40 h-40 rounded-full border shadow object-cover mb-8 sm:mb-0 flex-shrink-0"
-      alt={`Face that looks at the mouse pointer`}
-      src={`https://creepyface.io/img/${props.number}/serious`}
-      options={{
-        hover: `https://creepyface.io/img/${props.number}/hover`,
-        looks: range(8)
-          .map(i => i * 45)
-          .map(angle => ({
-            angle,
-            src: `https://creepyface.io/img/${props.number}/${angle}`
-          }))
-      }}
-    />
+    <div className="relative rounded-full border shadow flex-shrink-0 m-2 overflow-hidden">
+      <Creepyface
+        className={classnames(
+          { 'w-40 h-40': !dancing },
+          { 'w-20 h-20 sm:w-40 sm:h-40': dancing },
+          'object-cover'
+        )}
+        alt={`Face of ${name} that looks at the mouse pointer`}
+        src={`https://creepyface.io/img/${face}/serious`}
+        options={{
+          points: dancing ? 'dance' : 'pointer',
+          hover: `https://creepyface.io/img/${face}/hover`,
+          looks: range(8)
+            .map(i => i * 45)
+            .map(angle => ({
+              angle,
+              src: `https://creepyface.io/img/${face}/${angle}`
+            }))
+        }}
+        onLoad={() => setLoaded(true)}
+      />
+      {!loaded && (
+        <div className="text-4xl sm:text-6xl absolute inset-0 flex flex-col items-center justify-center bg-gray-200">
+          <Member {...props} />
+        </div>
+      )}
+    </div>
   )
 }
