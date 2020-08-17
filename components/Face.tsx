@@ -1,54 +1,117 @@
 import Creepyface from 'react-creepyface'
 import { range } from 'lodash'
-import { createContext, useContext } from 'react'
+import { useRef, Fragment, useLayoutEffect } from 'react'
 import classnames from 'classnames'
 import Emoji from './Emoji'
+import useGlobalState from '../hooks/state'
+import family, { Member } from '../util/family'
+import { makePointProvider, moves } from 'creepyface-dance'
 
-const FaceContext = createContext({ face: 1, setFace: (face: number) => {} })
-
-const FaceButton = (props: { face: number; emoji: string; title: string }) => {
-  const { face, setFace } = useContext(FaceContext)
+export const FaceButton = (props: { member: Member }) => {
+  const { dancing, member, setMember } = useGlobalState()
   return (
     <button
       className={classnames({
-        'opacity-25': props.face !== face && face !== 1
+        'opacity-25': props.member !== member && member !== family[0]
       })}
-      title={props.title}
-      onClick={() => setFace(face === props.face ? 1 : props.face)}
+      disabled={dancing || (props.member === family[0] && member === family[0])}
+      title={props.member.name}
+      onClick={() =>
+        setMember(member === props.member ? family[0] : props.member)
+      }
     >
-      <Emoji char={props.emoji} />
+      <Emoji char={props.member.emoji} />
     </button>
   )
 }
 
-export const Faces = (props: {
-  face: number
-  onChange: (face: number) => void
-}) => (
-  <FaceContext.Provider value={{ face: props.face, setFace: props.onChange }}>
-    <FaceButton face={11} title="Noemí" emoji="👩🏻‍🎨" />{' '}
-    <FaceButton face={16} title="Navi" emoji="😼" />{' '}
-    <FaceButton face={19} title="Pepa" emoji="😺" />{' '}
-    <FaceButton face={0} title="Nala" emoji="😾" />{' '}
-    <FaceButton face={170} title="Thor" emoji="🙀" />
-  </FaceContext.Provider>
+export const Faces = (props: { faces: Member[] }) => (
+  <span className="whitespace-no-wrap">
+    {props.faces.map((member, i) => (
+      <Fragment key={i}>
+        <FaceButton member={member} />{' '}
+      </Fragment>
+    ))}
+  </span>
 )
 
-export default function Face(props: { number: number }) {
+export default function Face(props: { member: Member }) {
+  const { dancing } = useGlobalState()
+  const { name, face } = props.member
   return (
     <Creepyface
-      className="w-40 h-40 rounded-full border shadow object-cover mb-8 sm:mb-0 flex-shrink-0"
-      alt={`Face that looks at the mouse pointer`}
-      src={`https://creepyface.io/img/${props.number}/serious`}
+      className={classnames(
+        { 'w-40 h-40': !dancing },
+        { 'w-20 h-20 sm:w-40 sm:h-40': dancing },
+        'm-2 rounded-full border shadow object-cover flex-shrink-0'
+      )}
+      alt={`Face of ${name} that looks at the mouse pointer`}
+      src={`https://creepyface.io/img/${face}/serious`}
       options={{
-        hover: `https://creepyface.io/img/${props.number}/hover`,
+        points: dancing ? 'dance' : 'pointer',
+        hover: `https://creepyface.io/img/${face}/hover`,
         looks: range(8)
           .map(i => i * 45)
           .map(angle => ({
             angle,
-            src: `https://creepyface.io/img/${props.number}/${angle}`
+            src: `https://creepyface.io/img/${face}/${angle}`
           }))
       }}
     />
+  )
+}
+
+let audio: HTMLAudioElement | null = null
+if (typeof window !== 'undefined') {
+  audio = new Audio()
+  audio.controls = true
+  audio.src = '/we-are-family.mp3'
+  makePointProvider({
+    name: 'dance',
+    audio,
+    bpm: 114,
+    firstBeat: 0.3,
+    choreography: [
+      ...moves.repeat(2)(['serious']),
+      ...moves.repeat(3)([
+        ...(['w', 'e', 'n', 's'] as const),
+        ...moves.repeat(2)(['crazy', 'serious'])
+      ]),
+      ...moves.circle('n')
+    ]
+  })
+}
+export function Player() {
+  const ref = useRef<HTMLDivElement>(null)
+  const { toggleDancing } = useGlobalState()
+
+  useLayoutEffect(() => {
+    if (ref.current && audio) {
+      ref.current.appendChild(audio)
+      audio.play()
+      return () => {
+        if (audio) {
+          audio.pause()
+          audio.currentTime = 0
+          ref.current?.removeChild(audio)
+        }
+      }
+    }
+  }, [])
+
+  return (
+    <div className="relative flex flex-col items-center justify-center">
+      <span>
+        Enough,{' '}
+        <button
+          className="hover:underline text-blue-500"
+          onClick={toggleDancing}
+        >
+          take me back
+        </button>
+        .
+      </span>
+      <div ref={ref} className="rounded-full overflow-hidden absolute mt-20" />
+    </div>
   )
 }

@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.3.0",
+    "@types/react-transition-group": "^4.4.0",
     "classnames": "^2.2.6",
     "creepyface": "^7.4.2",
+    "creepyface-dance": "^7.4.4",
     "lodash": "^4.17.19",
     "next": "9.5.0",
     "next-seo": "^4.7.3",
@@ -24,7 +26,9 @@
     "react-creepyface": "^7.4.2",
     "react-dom": "16.13.1",
     "react-easy-emoji": "^1.4.0",
-    "tailwindcss": "^1.5.1"
+    "react-transition-group": "^4.4.1",
+    "tailwindcss": "^1.5.1",
+    "unstated-next": "^1.1.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
