@@ -14,6 +14,14 @@ export default function Home() {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href={'/manifest.json'} />
+        {process.env.NODE_ENV === 'production' && (
+          <script
+            async
+            defer
+            data-domain="4lejandrito.dev"
+            src="https://plausible.io/js/plausible.js"
+          />
+        )}
       </Head>
 
       <NextSeo
