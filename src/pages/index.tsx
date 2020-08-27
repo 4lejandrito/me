@@ -34,7 +34,7 @@ function Home() {
               alt: `${title} - ${description}`
             }
           ],
-          site_name: 'alex.creepyace.io'
+          site_name: '4lejandrito.dev'
         }}
         twitter={{
           handle: '@4lejandrito',
