@@ -8,6 +8,7 @@ import useGlobalState, { Provider } from '../hooks/state'
 import Family, { Member, family } from '../components/Family'
 import classnames from 'classnames'
 import Animated from '../components/Animated'
+import PlausibleProvider from 'next-plausible'
 
 function Home() {
   const title = 'Alex'
@@ -18,14 +19,6 @@ function Home() {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href={'/manifest.json'} />
-        {process.env.NODE_ENV === 'production' && (
-          <script
-            async
-            defer
-            data-domain="4lejandrito.dev"
-            src="https://plausible.io/js/plausible.js"
-          />
-        )}
       </Head>
 
       <NextSeo
@@ -139,8 +132,10 @@ function Home() {
 
 export default function HomeWithState() {
   return (
-    <Provider>
-      <Home />
-    </Provider>
+    <PlausibleProvider domain="4lejandrito.dev">
+      <Provider>
+        <Home />
+      </Provider>
+    </PlausibleProvider>
   )
 }

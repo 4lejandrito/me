@@ -21,6 +21,7 @@
     "creepyface-dance": "^7.4.4",
     "lodash": "^4.17.19",
     "next": "9.5.0",
+    "next-plausible": "^1.0.2",
     "next-seo": "^4.7.3",
     "react": "16.13.1",
     "react-creepyface": "^7.4.2",

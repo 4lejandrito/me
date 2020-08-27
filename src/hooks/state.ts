@@ -1,13 +1,14 @@
 import { createContainer } from 'unstated-next'
 import { useState } from 'react'
 import { family, FamilyMember } from '../components/Family'
-import analytics from '../util/analytics'
+import { usePlausible } from 'next-plausible'
 
 const State = createContainer(() => {
   let [member, setMember] = useState(family[0])
   let [dancing, setDancing] = useState(false)
+  const plausible = usePlausible()
   let toggleDancing = () => {
-    if (!dancing) analytics('dance')
+    if (!dancing) plausible('dance')
     setDancing(!dancing)
   }
   return {
@@ -15,7 +16,7 @@ const State = createContainer(() => {
     dancing,
     toggleDancing,
     setMember: (member: FamilyMember) => {
-      analytics(member.name)
+      plausible(member.name)
       setMember(member)
     }
   }
