@@ -65,7 +65,7 @@ function Home() {
             'flex flex-col sm:flex-row items-center justify-center my-6 sm:my-16'
           )}
         >
-          <div className="flex flex-wrap items-center justify-center animate-up">
+          <div className="flex flex-wrap items-center justify-center">
             {dancing ? (
               family.map((member, i) => <Face key={i} member={member} />)
             ) : (

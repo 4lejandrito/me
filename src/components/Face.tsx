@@ -2,13 +2,11 @@ import Creepyface from 'react-creepyface'
 import { range } from 'lodash'
 import classnames from 'classnames'
 import useGlobalState from '../hooks/state'
-import { FamilyMember, Member } from './Family'
-import { useState } from 'react'
+import { FamilyMember } from './Family'
 
 export default function Face(props: { member: FamilyMember }) {
   const { dancing } = useGlobalState()
   const { name, face } = props.member
-  const [loaded, setLoaded] = useState(false)
 
   return (
     <div className="relative rounded-full border shadow flex-shrink-0 m-2 overflow-hidden">
@@ -30,13 +28,7 @@ export default function Face(props: { member: FamilyMember }) {
               src: `https://creepyface.io/img/${face}/${angle}`,
             })),
         }}
-        onLoad={() => setLoaded(true)}
       />
-      {!loaded && (
-        <div className="text-4xl sm:text-6xl absolute inset-0 flex flex-col items-center justify-center bg-gray-200">
-          <Member {...props} />
-        </div>
-      )}
     </div>
   )
 }
