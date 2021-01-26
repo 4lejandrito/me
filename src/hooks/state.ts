@@ -18,7 +18,7 @@ const State = createContainer(() => {
     setMember: (member: FamilyMember) => {
       plausible(member.name)
       setMember(member)
-    }
+    },
   }
 })
 

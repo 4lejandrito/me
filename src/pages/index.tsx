@@ -9,6 +9,7 @@ import Family, { Member, family } from '../components/Family'
 import classnames from 'classnames'
 import Animated from '../components/Animated'
 import PlausibleProvider from 'next-plausible'
+import 'tailwindcss/tailwind.css'
 
 function Home() {
   const title = 'Alex'
@@ -21,6 +22,26 @@ function Home() {
         <link rel="manifest" href={'/manifest.json'} />
       </Head>
 
+      <style jsx global>{`
+        .slide-up {
+          opacity: 0;
+          animation: slide-up 600ms;
+          transition: opacity 600ms;
+          animation: slide-up 0.75s cubic-bezier(0.785, 0.135, 0.15, 0.86)
+            forwards;
+        }
+        @keyframes slide-up {
+          0% {
+            opacity: 0;
+            transform: translateY(15px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+
       <NextSeo
         title={title}
         description={description}
@@ -31,14 +52,14 @@ function Home() {
           images: [
             {
               url: `${process.env.NEXT_PUBLIC_URL}/social.png`,
-              alt: `${title} - ${description}`
-            }
+              alt: `${title} - ${description}`,
+            },
           ],
-          site_name: '4lejandrito.dev'
+          site_name: '4lejandrito.dev',
         }}
         twitter={{
           handle: '@4lejandrito',
-          cardType: 'summary_large_image'
+          cardType: 'summary_large_image',
         }}
       />
 

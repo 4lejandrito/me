@@ -8,8 +8,8 @@ export default function Emoji(props: { char: string }) {
         ext: '.svg',
         size: '',
         props: {
-          className: 'inline-block'
-        }
+          className: 'inline-block',
+        },
       })}
     </>
   )

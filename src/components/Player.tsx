@@ -17,10 +17,10 @@ if (typeof window !== 'undefined') {
       ...moves.repeat(2)(['serious']),
       ...moves.repeat(3)([
         ...(['w', 'e', 'n', 's'] as const),
-        ...moves.repeat(2)(['crazy', 'serious'])
+        ...moves.repeat(2)(['crazy', 'serious']),
       ]),
-      ...moves.circle('n')
-    ]
+      ...moves.circle('n'),
+    ],
   })
 }
 

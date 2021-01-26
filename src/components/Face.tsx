@@ -24,11 +24,11 @@ export default function Face(props: { member: FamilyMember }) {
           points: dancing ? 'dance' : 'pointer',
           hover: `https://creepyface.io/img/${face}/hover`,
           looks: range(8)
-            .map(i => i * 45)
-            .map(angle => ({
+            .map((i) => i * 45)
+            .map((angle) => ({
               angle,
-              src: `https://creepyface.io/img/${face}/${angle}`
-            }))
+              src: `https://creepyface.io/img/${face}/${angle}`,
+            })),
         }}
         onLoad={() => setLoaded(true)}
       />

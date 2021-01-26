@@ -15,17 +15,20 @@ export const family: FamilyMember[] = [
   { face: 12, name: 'Navi', emoji: '😼' },
   { face: 19, name: 'Pepa', emoji: '😺' },
   { face: 0, name: 'Nala', emoji: '😾' },
-  { face: 171, name: 'Thor', emoji: '🙀' }
+  { face: 171, name: 'Thor', emoji: '🙀' },
 ]
 
 export const Member = (props: { member: FamilyMember }) => {
   const { dancing, member, setMember } = useGlobalState()
+  const disabled =
+    dancing || (props.member === family[0] && member === family[0])
   return (
     <button
       className={classnames({
-        'opacity-25': props.member !== member && member !== family[0]
+        'opacity-25': props.member !== member && member !== family[0],
+        'cursor-not-allowed': disabled,
       })}
-      disabled={dancing || (props.member === family[0] && member === family[0])}
+      disabled={disabled}
       title={props.member.name}
       onClick={() =>
         setMember(member === props.member ? family[0] : props.member)
