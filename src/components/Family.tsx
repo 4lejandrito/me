@@ -26,7 +26,7 @@ export const Member = (props: { member: FamilyMember }) => {
     <button
       className={classnames({
         'opacity-25': props.member !== member && member !== family[0],
-        'cursor-not-allowed': disabled,
+        'cursor-default': disabled,
       })}
       disabled={disabled}
       title={props.member.name}

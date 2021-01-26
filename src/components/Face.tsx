@@ -9,7 +9,7 @@ export default function Face(props: { member: FamilyMember }) {
   const { name, face } = props.member
 
   return (
-    <div className="relative rounded-full border shadow flex-shrink-0 m-2 overflow-hidden">
+    <div className="relative rounded-full border shadow flex-shrink-0 m-4 sm:m-2 overflow-hidden">
       <Creepyface
         className={classnames(
           { 'w-40 h-40': !dancing },
