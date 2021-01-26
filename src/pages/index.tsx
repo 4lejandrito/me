@@ -16,31 +16,11 @@ function Home() {
   const description = 'Welcome to my humble site'
   const { member, dancing, toggleDancing } = useGlobalState()
   return (
-    <main className="text-gray-800 font-sans text-lg sm:text-2xl min-h-screen flex flex-col items-center justify-center m-auto p-6 slide-up">
+    <main className="text-gray-800 font-sans text-lg sm:text-2xl min-h-screen flex flex-col items-center justify-center m-auto p-6">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href={'/manifest.json'} />
       </Head>
-
-      <style jsx global>{`
-        .slide-up {
-          opacity: 0;
-          animation: slide-up 600ms;
-          transition: opacity 600ms;
-          animation: slide-up 0.75s cubic-bezier(0.785, 0.135, 0.15, 0.86)
-            forwards;
-        }
-        @keyframes slide-up {
-          0% {
-            opacity: 0;
-            transform: translateY(15px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
 
       <NextSeo
         title={title}
@@ -85,7 +65,7 @@ function Home() {
             'flex flex-col sm:flex-row items-center justify-center my-6 sm:my-16'
           )}
         >
-          <div className="flex flex-wrap items-center justify-center">
+          <div className="flex flex-wrap items-center justify-center animate-up">
             {dancing ? (
               family.map((member, i) => <Face key={i} member={member} />)
             ) : (
@@ -133,7 +113,7 @@ function Home() {
         </section>
       </Animated>
 
-      <footer className="slide-up animation-delay">
+      <footer>
         <Animated state={dancing}>
           {dancing ? (
             <Player />
