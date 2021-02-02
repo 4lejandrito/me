@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "next build && next export",
-    "start": "next dev"
+    "dev": "next dev"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^4.0.0",
