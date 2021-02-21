@@ -12,7 +12,7 @@ if (typeof window !== 'undefined') {
     name: 'dance',
     audio,
     bpm: 114,
-    firstBeat: 0.3,
+    firstBeat: 0.164,
     choreography: [
       ...moves.repeat(2)(['serious']),
       ...moves.repeat(3)([
