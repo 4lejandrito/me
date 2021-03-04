@@ -20,15 +20,15 @@ export default function Face(props: { member: FamilyMember }) {
           'object-cover'
         )}
         alt={`Face of ${name} that looks at the mouse pointer`}
-        src={`https://creepyface.io/img/${face}/serious`}
+        src={`/img/${face}/serious.jpeg`}
         options={{
           points: dancing ? 'dance' : 'pointer',
-          hover: `https://creepyface.io/img/${face}/hover`,
+          hover: `/img/${face}/hover.jpeg`,
           looks: range(8)
             .map((i) => i * 45)
             .map((angle) => ({
               angle,
-              src: `https://creepyface.io/img/${face}/${angle}`,
+              src: `/img/${face}/${angle}.jpeg`,
             })),
         }}
         onLoad={() => setLoaded(true)}

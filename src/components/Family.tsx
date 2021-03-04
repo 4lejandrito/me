@@ -4,18 +4,18 @@ import Emoji from './Emoji'
 import useGlobalState from '../hooks/state'
 
 export type FamilyMember = {
-  face: number
+  face: string
   name: string
   emoji: string
 }
 
 export const family: FamilyMember[] = [
-  { face: 1, name: 'Alex', emoji: '👨🏼‍💻' },
-  { face: 170, name: 'Noemí', emoji: '👩🏻‍🎨' },
-  { face: 12, name: 'Navi', emoji: '😼' },
-  { face: 19, name: 'Pepa', emoji: '😺' },
-  { face: 0, name: 'Nala', emoji: '😾' },
-  { face: 171, name: 'Thor', emoji: '🙀' },
+  { face: 'alex', name: 'Alex', emoji: '👨🏼‍💻' },
+  { face: 'noe', name: 'Noemí', emoji: '👩🏻‍🎨' },
+  { face: 'navi', name: 'Navi', emoji: '😼' },
+  { face: 'pepa', name: 'Pepa', emoji: '😺' },
+  { face: 'nala', name: 'Nala', emoji: '😾' },
+  { face: 'thor', name: 'Thor', emoji: '🙀' },
 ]
 
 export const Member = (props: { member: FamilyMember }) => {
