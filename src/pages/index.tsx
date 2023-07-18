@@ -95,7 +95,7 @@ function Home() {
               <li>
                 I <strong>work</strong> as a{' '}
                 <strong>lead software engineer</strong> at{' '}
-                <Link href="https://twitter.com/Liferay">@Liferay</Link>.
+                <Link href="https://liferay.com">Liferay</Link>.
               </li>
               <li>
                 I <strong>made</strong>{' '}
