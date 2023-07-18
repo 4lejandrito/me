@@ -93,8 +93,9 @@ function Home() {
                 .
               </li>
               <li>
-                I <strong>work</strong> as a <strong>Software Engineer</strong>{' '}
-                at <Link href="https://twitter.com/Liferay">@Liferay</Link>.
+                I <strong>work</strong> as a{' '}
+                <strong>Lead Software Engineer</strong> at{' '}
+                <Link href="https://twitter.com/Liferay">@Liferay</Link>.
               </li>
               <li>
                 I <strong>made</strong>{' '}
