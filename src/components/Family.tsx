@@ -4,7 +4,7 @@ import Emoji from './Emoji'
 import useGlobalState from '../hooks/state'
 
 export type FamilyMember = {
-  face: string
+  face: string | null
   name: string
   emoji: string
 }
@@ -12,6 +12,7 @@ export type FamilyMember = {
 export const family: FamilyMember[] = [
   { face: 'alex', name: 'Alex', emoji: '👨🏼‍💻' },
   { face: 'noe', name: 'Noemí', emoji: '👩🏻‍🎨' },
+  { face: 'theo', name: 'Theo', emoji: '👶🏼' },
   { face: 'navi', name: 'Navi', emoji: '😼' },
   { face: 'pepa', name: 'Pepa', emoji: '😺' },
   { face: 'nala', name: 'Nala', emoji: '😾' },

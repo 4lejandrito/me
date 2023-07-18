@@ -24,12 +24,15 @@ export default function Face(props: { member: FamilyMember }) {
         options={{
           points: dancing ? 'dance' : 'pointer',
           hover: `/img/${face}/hover.jpeg`,
-          looks: range(8)
-            .map((i) => i * 45)
-            .map((angle) => ({
-              angle,
-              src: `/img/${face}/${angle}.jpeg`,
-            })),
+          looks:
+            face === 'theo'
+              ? []
+              : range(8)
+                  .map((i) => i * 45)
+                  .map((angle) => ({
+                    angle,
+                    src: `/img/${face}/${angle}.jpeg`,
+                  })),
         }}
         onLoad={() => setLoaded(true)}
       />
