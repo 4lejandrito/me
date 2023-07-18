@@ -98,6 +98,7 @@ function Home() {
               </li>
               <li>
                 I <strong>made</strong>{' '}
+                <Link href="https://gptgames.io">GPT Games</Link>,{' '}
                 <Link href="https://react-guitar.com">react-guitar</Link> and{' '}
                 <Link href="https://creepyface.io">creepyface</Link>.
               </li>
