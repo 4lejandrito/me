@@ -1,6 +1,5 @@
 import { Fragment } from 'react'
 import classnames from 'classnames'
-import Emoji from './Emoji'
 import useGlobalState from '../hooks/state'
 
 export type FamilyMember = {
@@ -35,7 +34,7 @@ export const Member = (props: { member: FamilyMember }) => {
         setMember(member === props.member ? family[0] : props.member)
       }
     >
-      <Emoji char={props.member.emoji} />
+      {props.member.emoji}
     </button>
   )
 }
