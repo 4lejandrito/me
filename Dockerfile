@@ -10,5 +10,4 @@ RUN yarn build
 FROM nginx AS runtime
 
 WORKDIR /usr/src/app
-RUN echo "/ Alex" > /usr/src/app/CHECKS
 COPY --from=compile /usr/src/app/out /usr/share/nginx/html
